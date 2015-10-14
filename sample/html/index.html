@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+		<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+        <script src="js/angular.min.js" type="text/javascript"></script>
+ </HEAD>
+ <BODY>
+ hi
+  <script type="text/javascript" >
+  var account= $.cookie('nickname');
+  if(typeof(account) === 'undefined'){
+	document.write("<a href='login.html'>login<\/a>");
+  }else{
+	document.write('welcome:'+account+"<a href='logout.html'>logout<\/a>");
+  }
+  </script>
+
+
+ </BODY>
+</HTML>

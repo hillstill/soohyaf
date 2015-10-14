@@ -1,0 +1,14 @@
+-- 主库（default）
+create database db_b2b;
+
+-- 主库（log），保障不影响主业务
+create database db_b2blog;
+
+-- 其他考虑：session 用专用内存库
+-- create database db_ram;
+
+-- 其他考虑：device追踪使用专用库，保障不影响主业务
+-- create database db_device;
+
+-- 其他考虑：www主站的账号使用专用库,保障注册体系
+-- create database db_account;

@@ -1,0 +1,39 @@
+<?php
+if(\SoohYaf\Viewext::$bodyonly==false){
+	echo '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">';
+	echo implode("\n",$this->htmlHeadPart(null));
+?>	
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<style>
+	.tableStd {margin:5;border: 1px solid #d3d3d3; border-radius: 5px; background-color:#fefefe;}
+	.tableStd td {border-right: 1px solid #e0e0e0;   border-bottom: 1px solid #e0e0e0; padding:5;}
+	.tableStd th {border-right: 1px solid #e0e0e0;   border-bottom: 1px solid #e0e0e0; padding:5;}
+	.linkBtn {}
+	.divChartDefault {margin:5px; 
+		border: 5px solid #dedede;
+		-moz-border-radius: 15px;      /* Gecko browsers */
+		-webkit-border-radius: 15px;   /* Webkit browsers */
+		border-radius:15px;            /* W3C syntax */
+		width:720px;height:400px;float:left
+	}
+	#divReturnBtn
+	{
+		position:absolute;
+		float:left;
+		z-index:3;
+		text-align:center;
+		width:57px;
+		height:30px;
+		left:0px;
+		top: 760px;
+		background-color:#00CCFF;
+		border: 5px solid #0066FF;
+		-moz-border-radius: 15px;      /* Gecko browsers */
+		-webkit-border-radius: 15px;   /* Webkit browsers */
+		border-radius:15px;
+	}
+</style>
+</head>
+<?php 
+}
+

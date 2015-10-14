@@ -1,0 +1,83 @@
+<?php
+	echo '<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html;charset=utf-8">'."\n";
+	echo '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">'."\n";
+	echo implode("\n",$this->htmlHeadPart(null));
+?>
+
+<link href="dwz/themes/default/style.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="dwz/themes/css/core.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="dwz/themes/css/print.css" rel="stylesheet" type="text/css" media="print"/>
+<link href="dwz/uploadify/css/uploadify.css" rel="stylesheet" type="text/css" media="screen"/>
+<!--[if IE]>
+<link href="/dwz/themes/css/ieHack.css" rel="stylesheet" type="text/css" media="screen"/>
+<![endif]-->
+
+<style>
+	.tableStd {margin:5;border: 1px solid #d3d3d3; border-radius: 5px; background-color:#fefefe;}
+	.tableStd td {border-right: 1px solid #e0e0e0;   border-bottom: 1px solid #e0e0e0; padding:5;}
+	.tableStd th {border-right: 1px solid #e0e0e0;   border-bottom: 1px solid #e0e0e0; padding:5;}
+	.linkBtn {}
+	.divChartDefault {margin:5px; 
+		border: 5px solid #dedede;
+		-moz-border-radius: 15px;      /* Gecko browsers */
+		-webkit-border-radius: 15px;   /* Webkit browsers */
+		border-radius:15px;            /* W3C syntax */
+		width:720px;height:400px;float:left
+	}
+	#divReturnBtn
+	{
+		position:absolute;
+		float:left;
+		z-index:3;
+		text-align:center;
+		width:57px;
+		height:30px;
+		left:0px;
+		top: 760px;
+		background-color:#00CCFF;
+		border: 5px solid #0066FF;
+		-moz-border-radius: 15px;      /* Gecko browsers */
+		-webkit-border-radius: 15px;   /* Webkit browsers */
+		border-radius:15px;
+	}
+</style>
+
+<style type="text/css">
+			#header{height:50px}
+			#leftside, #container, #splitBar, #splitBarProxy{top:55px}
+</style>
+<!--[if lte IE 9]>
+<script  src="dwz/js/speedup.js"></script>
+<![endif]-->
+
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<script  src="dwz/js/jquery-1.7.2.min.js"></script>
+<script  src="dwz/js/jquery.cookie.js"></script>
+<script  src="dwz/js/jquery.validate.js"></script>
+<script  src="dwz/js/jquery.bgiframe.js"></script>
+<script  src="dwz/xheditor/xheditor-1.2.1.min.js"></script>
+<script  src="dwz/xheditor/xheditor_lang/zh-cn.js"></script>
+<script  src="dwz/bn/dwz.min.js"></script>
+<script  src="dwz/js/dwz.regional.zh.js"></script>
+<script type="text/javascript">
+$(function(){
+	DWZ.init("dwz/dwz.frag.xml", {
+		<?php echo 'loginUrl:"index.php?__='.default_route_val.'&",';?>
+		statusCode:{ok:200, error:300, timeout:301,forbidden:403}, //【可选】
+		keys: {statusCode:"statusCode", message:"message"}, //【可选】
+		pageInfo:{pageNum:"pageid", numPerPage:"pagesize", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
+		debug:false,	// 调试模式 【true|false】
+		callback:function(){
+<?php if($this->flgIsSinglePage){
+	echo '$("#themeList").theme({themeBase:"themes"});'."\n";
+}else{
+	echo "initEnv();\n";
+	echo '$("#themeList").theme({themeBase:"themes"});'."\n";
+	//setTimeout(function() {$("#sidebar .toggleCollapse div").trigger("click");}, 10);
+	echo "navTab.openTab('myself','".\Sooh\Base\Tools::uriTpl(array(), 'welcome', 'manager')."&',{title:'我的主页',fresh:true,data:{}});	\n";
+}?>
+		}
+	});
+});
+</script>
+</head>

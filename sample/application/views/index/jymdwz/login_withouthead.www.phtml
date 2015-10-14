@@ -1,0 +1,45 @@
+<?php 
+$this->htmlHeadPart('<title>login</title>');
+echo $this->renderInc('head');
+?>
+<body>
+<script>
+	function myRetChk(arg){
+		if(arg.statusCode==DWZ.statusCode.ok){
+			$.pdialog.closeCurrent();
+			//如果还有dialog用dialog开启， 如果url是强制json，则returnurl=''
+			navTab.reload(arg.returnUrl,{navTabId: ''});
+		}else{
+			dialogAjaxDone(arg);
+		}
+	}
+</script>
+	<div class="pageContent" >
+		<form method="post" action="<?php echo \Sooh\Base\Tools::uriTpl(array('__ONLY__'=>'body','__VIEW__'=>'json',),'jymframe','index','index');?>" 
+			  class="pageForm" onsubmit="return validateCallback(this, myRetChk)">
+			<div class="pageFormContent" layoutH="58">
+<?php 
+$fields = $this->record;
+$grpname = $this->grpname;
+$divLbl = '<div class="unit"><label>';
+$input = '</label><input type="text" size="30" ';
+$passs = '</label><input type="password" size="30" ';
+$hidden='</label><input type="hidden" ';
+echo '<input type=hidden name=camefrom value=Jym>';
+echo $divLbl.'账号：'.$input.'name="u" class="required"/></div>';
+echo $divLbl.'密码：'.$passs.'name="p" class="required"/></div>';
+?>
+			</div>
+			<input type="hidden" name="returnUrl" value="<?php echo htmlspecialchars($this->returnUrl);?>">
+			<div class="formBar">
+				<ul>
+					<li><div class="buttonActive"><div class="buttonContent"><button type="submit">登入</button></div></div></li>
+					<li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+				</ul>
+			</div>		
+		
+		</form>
+	</div>
+
+<?php 
+echo $this->renderInc('foot');

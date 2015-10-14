@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+    <head>
+		<meta http-equiv=Content-Type content="text/html;charset=utf-8">
+		<script src="js/global_ini.js" type="text/javascript"></script>
+        <script src="js/angular.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+// the main (app) module
+var myApp = angular.module("myApp", []);
+
+// add a controller
+myApp.controller("myCtrl", function($scope,$http) {
+	$scope.usr = "enter your account";
+	$scope.pwd = "enter your password";
+	$scope.msg = 'to do';
+	$scope.CheckinBookDone='unknown';
+	$scope.items = [
+            {name: "雷柏（Rapoo） V500 机械游戏键盘 机械黄轴", quantity: 1, price: 199.00},
+            {name: "雷柏（Rapoo） V20 光学游戏鼠标 黑色烈焰版", quantity: 1, price: 139.00},
+            {name: "AngularJS权威教程", quantity: 2, price: 84.20}
+        ];
+ 
+	$scope.remove = function (index) {
+		$scope.items.splice(index, 1);
+	}
+	$scope.doLogin = function() { 
+		    $http({		method: 'JSONP',  
+						url: api_host+'passport/login&loginname='+$scope.usr+'&passwd='+$scope.pwd+'&__VIEW__=jsonp&jsonp=JSON_CALLBACK'})
+				.success(function(data, status, headers, config) {  // data contains the response  // status is the HTTP status  // headers is the header getter function  // config is the object that was used to create the HTTP request
+				if(data.code===200){
+					$scope.CheckinBookDone=data.checkinBook.todaychked;
+				}else{
+					alert(data.code+"#"+data.msg);
+				}
+				})
+				.error(function(data, status, headers, config) {
+					alert('connect_error');
+				}); 
+	};
+});
+
+// add a filter
+//myApp.filter("myUpperFilter", function() {
+//    return function(input) {
+//        return input.toUpperCase();
+//    }
+//});
+
+// add a directive
+//myApp.directive("myDctv", function() {
+//    return function(scope, element, attrs) {
+//        element.bind("mouseenter", function() {
+//            element.css("background", "yellow");
+//        });            
+//        element.bind("mouseleave", function() {
+//            element.css("background", "none");
+//        });            
+//    }
+//});
+        </script>
+        <title>learing argularjs--widuu</title>
+    </head>
+<body ng-app="myApp" ng-controller="myCtrl">
+	<!--<p myDctv >{{msg | myUpperFilter }}</p>-->
+    <p >{{msg}}</p>
+    account:<input ng-model="usr" />
+	password:<input ng-model="pwd" />
+	<button ng-click="doLogin()" class="button">Login</button> 
+	<p id="checkinBookZone">
+		<span >{{CheckinBookDone}}</span>
+	</p>
+	
+	<table border="1">
+    <caption>我的购物车</caption>
+    <tr>
+        <th>序号</th>
+        <th>商品</th>
+        <th>单价</th>
+        <th>数量</th>
+        <th>金额</th>
+        <th>操作</th>
+    </tr>
+    <tr ng-repeat="item in items">
+        <td>{{$index + 1}}</td>
+        <td>{{item.name}}</td>
+        <td>{{item.price | currency}}</td>
+        <td><input ng-model="item.quantity"></td>
+        <td>{{item.quantity * item.price | currency}}</td>
+        <td>
+            <button ng-click="remove($index)">Remove</button>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

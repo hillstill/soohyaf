@@ -1,0 +1,80 @@
+<?php
+$formSearch = \Sooh\Base\Form\Broker::getCopy('default');
+$formSearch->setRenderer(new \Lib\Misc\DWZ());
+?>
+<form id="pagerForm" method="post" action="<?php echo \Sooh\Base\Tools::uri(array());?>">
+	<?php echo $formSearch->renderHiddenAfter(0); ?>
+</form>
+
+<div class="pageHeader">
+	<?php echo $formSearch->renderFormTag('onsubmit="return navTabSearch(this);"');?>
+	<div class="searchBar">
+		<table class="searchContent"><tr><?php echo $formSearch->renderDefault('<td>{capt} {input}</td>'); ?></tr></table>
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></li>
+				<!--<li><a class="button" href="demo_page6.html" target="dialog" mask="true" title="查询框"><span>高级检索</span></a></li>-->
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="<?php echo \Sooh\Base\Tools::uriTpl(array(),'form');?>" target="navTab" ref="edtSomething"><span>添加</span></a></li>
+			<!--<li><a class="delete" href="<?php echo \Sooh\Base\Tools::uriTpl(array('_pkey_val'=>'{pkey_val}'),'delete');?>" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>-->
+			<li><a class="edit" href="<?php echo \Sooh\Base\Tools::uriTpl(array('_pkey_val'=>'{pkey_val}'),'form');?>" target="navTab" ref="edtSomething"><span>修改</span></a></li>
+			<li><a class="edit" href="<?php echo \Sooh\Base\Tools::uriTpl(array('_pkey_val'=>'{pkey_val}'),'pwdreset');?>" target="dialog"><span>重置密码</span></a></li>
+			<li class="line">line</li>
+			<li><!--<a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a>--></li>
+			<li><a class="icon" href="<?php echo \Sooh\Base\Tools::uriTpl(array('_pkey_val'=>'{pkey_val}'),'disable');?>" target="ajaxTodo"  title="确定要禁用吗?"><span>禁用帐号</span></a></li>
+			<li><a class="icon" href="<?php echo \Sooh\Base\Tools::uriTpl(array('_pkey_val'=>'{pkey_val}'),'enable');?>" target="ajaxTodo"  title="确定要启用吗?"><span>启用帐号</span></a></li>
+		</ul>
+	</div>
+	<table class="table" width="100%" layoutH="138">
+		<thead>
+			<tr>
+				<th width="70">账号</th>
+				<th width="90">昵称</th>
+				<th width="80">最后登入时间</th><th width="70">最后登入IP</th>
+				<th width="">权限</th>
+				<th width="90">状态</th>
+				<th width="90">其他操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			//$optionsStatus = $formSearch->item('_flgDisable_eq')->options->getPair();
+			$rights = $this->rightsEnum;
+			
+			$records = $this->records;
+			
+			if(!empty($records)){
+				foreach($records as $r){
+					$pkey = \Lib\Misc\DWZ::encodePkey(array('camefrom'=>'local','loginname'=>$r['loginname']));
+					echo "<tr target=\"pkey_val\" rel=\"".$pkey."\">";
+					echo "<td>{$r['loginname']}</td>";
+					echo "<td>{$r['nickname']}</td>
+					<td>".date('m-d H:i',$r['lastDt'])."</td><td>{$r['lastIP']}</td>
+					<td>";
+					$tmp = explode(',', $r['rights']);
+					$ret = array();
+					foreach($tmp as $k){
+						list($i,$v) = explode('.', $rights[$k]);
+						$ret[$i][]=$v;
+					}
+					foreach($ret as $k=>$v){
+						echo "<b>$k</b>:".implode(',', $v).' ';
+					}
+					echo "</td><td>".($r['dtForbidden']?'禁用':'正常')."</td>";
+					echo "<td><a class=\"button\" rel=\"dlg_default\" title=\"日志记录窗口\" target=\"dialog\" href=\"".\Sooh\Base\Tools::uri(array('_pkey_val'=>$pkey),'showlog')."\"><span>看日志</span></a></td>";
+					echo "</tr>\n";
+				}
+			}
+			?>
+		</tbody>
+	</table>
+	<?php echo $this->renderInc('dwz_pager');/*$this->pager*/?>
+</div>

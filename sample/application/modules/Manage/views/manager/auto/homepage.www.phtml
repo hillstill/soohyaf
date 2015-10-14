@@ -1,0 +1,58 @@
+<div id="layout">
+		<div id="header">
+			<div class="headerNav">
+				<a class="logo" href="http://j-ui.com">标志</a>
+				<ul class="nav">
+					<!--
+					<li id="switchEnvBox"><a href="javascript:"><div class="selected">蓝(切换)</div></a>
+						<ul class="themeList" id="themeList">
+							<li theme="default"><div class="selected">蓝色</div></li>
+							<li theme="green"><div>绿色</div></li><li theme="purple"><div>紫色</div></li><li theme="silver"><div>银色</div></li><li theme="azure"><div>天蓝</div></li>
+						</ul>
+					</li>
+	 -->
+					<li><a href="#" target="dialog" width="600">修改密码</a></li>
+					<li><a href="<?php echo \Sooh\Base\Tools::uri(array('dowhat'=>'logout'), 'index', 'manager')?>">退出</a></li>
+				</ul>
+			</div>
+		
+			<!-- 更改leftside用的, 缩小了（85-50,90-55）dwz\themes\default\images\header_bg.png, 以及本页面上面定义的css：#header{height:50px} 和 #leftside, #container, #splitBar, #splitBarProxy{top:55px}-->
+			<!--
+			<div id="navMenu">
+				<ul>
+					<li class="selected"><a href="sidebar_1.html"><span>资讯管理</span></a></li>
+					<li><a href="sidebar_2.html"><span>订单管理</span></a></li>
+					<li><a href="sidebar_1.html"><span>产品管理</span></a></li>
+					<li><a href="sidebar_2.html"><span>会员管理</span></a></li>
+					<li><a href="sidebar_1.html"><span>服务管理</span></a></li>
+					<li><a href="sidebar_2.html"><span>系统设置</span></a></li>
+				</ul>
+			</div>
+			-->
+		</div>
+		<?php echo $this->renderInc('leftmenu');?>
+		<div id="container">
+			<div id="navTab" class="tabsPage">
+				<div class="tabsPageHeader">
+					<div class="tabsPageHeaderContent"><!-- 显示左右控制时添加 class="tabsPageHeaderMargin" -->
+						<ul class="navTab-tab">
+							<li tabid="myself" class="selected"><a href="javascript:;"><span><span class="home_icon">我的主页</span></span></a></li>
+						</ul>
+					</div>
+					<div class="tabsLeft">left</div><!-- 禁用只需要添加一个样式 class="tabsLeft tabsLeftDisabled" -->
+					<div class="tabsRight">right</div><!-- 禁用只需要添加一个样式 class="tabsRight tabsRightDisabled" -->
+					<div class="tabsMore">more</div>
+				</div>
+				<ul class="tabsMoreList">
+					<li><a href="javascript:;">我的主页</a></li>
+				</ul>
+				<div class="navTab-panel tabsPageContent layoutBox">
+					<div class="page" style="text-align:center; width: 100%;">
+						<div id="divCurPage" style="text-align:center;" layoutH="0">...........................................................</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+<div id="footer">没有公告。。。</div>

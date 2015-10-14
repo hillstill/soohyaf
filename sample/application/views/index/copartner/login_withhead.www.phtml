@@ -1,0 +1,55 @@
+<?php 
+$this->htmlHeadPart('<title>config表数据管理</title>');
+$this->htmlHeadPart(\Sooh\DWZ\phtml::header());
+$this->htmlHeadPart('<script type="text/javascript">
+$(function(){
+	DWZ.init("'. \Sooh\Base\Ini::getInstance()->get('request.baseUri').'/dwz/dwz.frag.xml", {
+		loginUrl:"'.\Sooh\DB\Acl\Acl::getInstance()->urlLogin().'", 
+		statusCode:{ok:200, error:300, timeout:301}, //【可选】
+		keys: {statusCode:"statusCode", message:"message"}, //【可选】
+		pageInfo:{pageNum:"pageid", numPerPage:"pagesize", orderField:"orderField", orderDirection:"orderDirection"}, //【可选】
+		debug:false,	// 调试模式 【true|false】
+		callback:function(){
+			$("#themeList").theme({themeBase:"themes"});
+		}
+	});
+});
+</script>');
+echo $this->renderInc('head');
+?>
+<body>
+<br/><br/><br/><br/><center><div defh="150" class="panel" style="display: block;width:400px;">
+		<div class="panelHeader"><div class="panelHeaderContent"><h1 style="cursor: move;"> </h1></div></div>
+		<div class="panelContent" style="height: 150px;">
+			<script>
+				function myRetChk(arg){
+					if(arg.statusCode==DWZ.statusCode.ok){
+						window.location.href=arg.returnUrl;
+					}else{
+						alert(arg.message);
+					}
+				}
+			</script>
+	<div class="pageContent" >
+		<form id='frmLogin' method="post" action="<?php echo \Sooh\Base\Tools::uriTpl(array('__VIEW__'=>'json'));?>" 
+			  class="pageForm" onsubmit="return validateCallback(this, myRetChk)">
+			<div class="pageFormContent" layoutH="58">
+<?php 
+$fields = $this->record;
+$grpname = $this->grpname;
+$divLbl = '<div class="unit">';
+$input = '<input type="text" size="20" ';
+$passs = '<input type="password" size="20" ';
+$hidden='<input type="hidden" ';
+echo $divLbl.'公司：'.$input.'name="camefrom" class="required"/></div>';
+echo $divLbl.'账号：'.$input.'name="u" class="required"/></div>';
+echo $divLbl.'密码：'.$passs.'name="p" class="required"/></div>';
+?>
+			</div>
+			<input type="hidden" name="returnUrl" value="<?php echo htmlspecialchars($this->returnUrl);?>">
+			<div class="button" style="float:none"><div class="buttonContent" style="float:none"><button type="submit">　　　　　　　　　　　　　登入　　　　　　　　　　　　</button></div></div>
+		</form>
+	</div>
+</div><div class="panelFooter"><div class="panelFooterContent"></div></div></div></center>
+<?php 
+echo $this->renderInc('foot');

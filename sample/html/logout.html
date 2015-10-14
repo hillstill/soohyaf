@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> index </TITLE>
+  <script type="text/javascript" src="js/global_ini.js"></script>
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.form.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+ </HEAD>
+ <BODY>
+  <form id=frmLogout method=post>
+  <input type=submit>
+  </form>
+  <script>
+
+  
+		
+function logoutRet(response, statusText){  
+	if(response.code==200){
+		$.cookie('nickname', null); 
+		document.location.href='index.html';
+	}else{
+		alert(response.msg);
+	}
+}
+
+$(document).ready(function () {
+	$("#frmLogin").ajaxForm(
+		{  
+		success: logoutRet,      //提交后的回调函数  
+		//url: url,                 //默认是form的action， 如果申明，则会覆盖  
+		dataType: 'json',           //html(默认), xml, script, json...接受服务端返回的类型 
+		//clearForm: true,          //成功提交后，清除所有表单元素的值  
+		//resetForm: true,          //成功提交后，重置所有表单元素的值  
+		timeout: 3000               //限制请求的时间，当请求大于3秒后，跳出请求  
+		}
+	);
+});
+  </script>
+ </BODY>
+</HTML>
